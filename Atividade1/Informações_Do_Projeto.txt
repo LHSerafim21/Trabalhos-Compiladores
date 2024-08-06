@@ -1,0 +1,6 @@
+Bibliotecas que precisa instalar:
+
+-Tkinter
+
+==========================================================
+Coisas pra fazer: [criar Doc, com regras.], [corrigir bugs]
