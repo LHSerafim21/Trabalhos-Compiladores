@@ -11,7 +11,7 @@ class App:
         self.manager = LexerManager()
 
         # Configurações da janela
-        self.root.geometry("600x400")
+        self.root.geometry("800x800")
         
         # Seletor de conjuntos de regras
         self.rule_set_label = ttk.Label(root, text="Selecione o conjunto de regras:")
