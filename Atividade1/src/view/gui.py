@@ -11,8 +11,11 @@ class App:
         self.manager = LexerManager()
 
         self.root.geometry("600x700")  
+
+        self.rule_set_label = ttk.Label(root, text="Trabalho 1 - Compiladores")
+        self.rule_set_label.pack(pady=5)
         
-        self.rule_set_label = ttk.Label(root, text="SELECIONAR CONJUNTO DE REGRAS:")
+        self.rule_set_label = ttk.Label(root, text="SELECIONAR CONJUNTO DE REGRAS:", font=('Arial', 12, 'bold'))
         self.rule_set_label.pack(pady=5)
         
         self.rule_set_var = tk.StringVar()
@@ -24,8 +27,8 @@ class App:
         self.create_button = ttk.Button(root, text="Criar Lexema", command=self.create_lexer)
         self.create_button.pack(pady=5)
 
-        self.input_label = ttk.Label(root, text="Inserir Texto:")
-        self.input_label.pack(pady=5)
+        self.rule_set_label = ttk.Label(root, text="INSERIR TEXTO:", font=('Arial', 12, 'bold'))
+        self.rule_set_label.pack(pady=5)
         
         self.input_text = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=60, height=10)
         self.input_text.pack(pady=5)
@@ -33,8 +36,8 @@ class App:
         self.tokenize_button = ttk.Button(root, text="Tokenizar", command=self.tokenize_input)
         self.tokenize_button.pack(pady=5)
         
-        self.output_label = ttk.Label(root, text="TOKENS:")
-        self.output_label.pack(pady=5)
+        self.rule_set_label = ttk.Label(root, text="TOKENS:", font=('Arial', 12, 'bold'))
+        self.rule_set_label.pack(pady=5)
         
         self.output_text = scrolledtext.ScrolledText(root, wrap=tk.WORD, width=60, height=10)
         self.output_text.pack(pady=5)
