@@ -4,3 +4,21 @@ Bibliotecas que precisa instalar:
 
 ==========================================================
 Coisas pra fazer: [criar Doc, com regras.], [corrigir bugs], ...
+
+==========================================================
+Como usar:
+
+- executa a main
+- escolhe o conjunto de regras na caixinha
+- digita o texto no primeiro TextArea. ex:
+
+int main(){
+
+int igao;
+
+printf("");
+
+}
+
+-apertar o botao criar lexema
+-apertar o botao de token
