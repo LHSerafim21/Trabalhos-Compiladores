@@ -14,7 +14,9 @@ Como usar:
 
 int main(){
 
-int igao;
+int soma;
+
+soma = 586 +984;
 
 printf("");
 

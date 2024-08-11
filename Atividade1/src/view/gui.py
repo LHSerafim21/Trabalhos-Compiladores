@@ -20,7 +20,7 @@ class App:
         
         self.rule_set_var = tk.StringVar()
         self.rule_set_combobox = ttk.Combobox(root, textvariable=self.rule_set_var)
-        self.rule_set_combobox['values'] = ("simple", "programming_language")
+        self.rule_set_combobox['values'] = ("Semantica_Serafim", "Semantica_Ikeda", "Semantica_Menezes")
         self.rule_set_combobox.current(0)
         self.rule_set_combobox.pack(pady=5)
         
