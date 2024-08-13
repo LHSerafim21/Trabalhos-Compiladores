@@ -1,10 +1,12 @@
 # Definições de regras para diferentes tipos de lexers
+import regex as re
 
-Semantica_Serafim = [
+reserved_words = ['if', 'else', 'while', 'return', 'printf']
+token_specification = [
     (r'[ \t]+', 'WHITESPACE'),
     (r'\n', 'NEWLINE'),
-    (r'\d+', 'NUMBER'),
-    (r'\w+', 'IDENTIFIER'),
+    (r'\d+(\.\d*)?', 'NUMBER'),
+    (r'[A-Za-z_]\w*', 'IDENTIFIER'),
     (r'if', 'IF'),
     (r'else', 'ELSE'),
     (r'while', 'WHILE'),
@@ -21,20 +23,9 @@ Semantica_Serafim = [
     (r'.', 'UNKNOWN'),
 ]
 
-Semantica_Ikeda = [
-    
-]
-
-Semantica_Menezes = [
-    
-]
 
 def get_rules(rule_set_name):
-    if rule_set_name == "Semantica_Serafim":
-        return Semantica_Serafim
-    elif rule_set_name == "Semantica_Ikeda":
-        return Semantica_Ikeda
-    elif rule_set_name == "Semantica_Menezes":
-        return Semantica_Menezes
+    if rule_set_name == "Semantica principal":
+        return token_specification
     else:
         raise ValueError(f"Conjunto de regras '{rule_set_name}' não encontrado.")
