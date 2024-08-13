@@ -25,7 +25,7 @@ token_specification = [
 
 
 def get_rules(rule_set_name):
-    if rule_set_name == "Semantica principal":
+    if rule_set_name == "Semantica_principal":
         return token_specification
     else:
         raise ValueError(f"Conjunto de regras '{rule_set_name}' não encontrado.")
