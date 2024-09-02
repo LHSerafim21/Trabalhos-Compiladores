@@ -10,7 +10,7 @@ class App:
         self.manager = LexerManager()
 
         # Configura a janela para iniciar maximizada (método alternativo)
-        self.root.attributes("-zoomed", True)  # Para sistemas Unix (Linux/Mac)
+        # self.root.attributes("-zoomed", True)  # Para sistemas Unix (Linux/Mac)
 
         self.root.configure(bg="#2E2E2E")  # Cor de fundo escura
 
