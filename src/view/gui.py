@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, filedialog
 from utils.rules import get_rules
 from controller.lexer_manager import LexerManager
 
@@ -52,12 +52,25 @@ class App:
         self.tree.heading("Coluna final", text="Coluna Final")
         self.tree.pack(fill=tk.BOTH, expand=True)
 
-        # Botões
-        self.tokenize_button = ttk.Button(root, text="Tokenizar", command=self.tokenize_input)
-        self.tokenize_button.pack(pady=5)
+        # Frame para os botões
+        self.button_frame = ttk.Frame(root)
+        self.button_frame.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)
+        
+        # Frame intermediário para centralizar os botões
+        self.inner_button_frame = ttk.Frame(self.button_frame)
+        self.inner_button_frame.pack(side=tk.TOP, expand=True)
 
-        self.clear_button = tk.Button(root, text="Limpar", command=self.clear_text, bg='#d9534f', fg='white', activebackground='#c9302c', activeforeground='white')
-        self.clear_button.pack(pady=5)
+        self.open_button = ttk.Button(self.inner_button_frame, text="Abrir", command=self.open_file)
+        self.open_button.pack(side=tk.LEFT, padx=5)
+
+        self.save_button = ttk.Button(self.inner_button_frame, text="Salvar", command=self.save_file)
+        self.save_button.pack(side=tk.LEFT, padx=5)
+
+        self.tokenize_button = ttk.Button(self.inner_button_frame, text="Tokenizar", command=self.tokenize_input)
+        self.tokenize_button.pack(side=tk.LEFT, padx=5)
+
+        self.clear_button = tk.Button(self.inner_button_frame, text="Limpar", command=self.clear_text, bg='#d9534f', fg='white', activebackground='#c9302c', activeforeground='white')
+        self.clear_button.pack(side=tk.LEFT, padx=5)
 
     def update_line_numbers(self, event=None):
         """Atualiza os números das linhas no editor de texto."""
@@ -72,6 +85,21 @@ class App:
         """Sincroniza a rolagem entre o editor de texto e os números das linhas."""
         self.input_text.yview(*args)
         self.line_numbers.yview(*args)
+
+    def open_file(self):
+        file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
+        if file_path:
+            with open(file_path, 'r') as file:
+                content = file.read()
+                self.input_text.delete(1.0, tk.END)
+                self.input_text.insert(tk.END, content)
+
+    def save_file(self):
+        file_path = filedialog.asksaveasfilename(defaultextension=".txt", filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
+        if file_path:
+            with open(file_path, 'w') as file:
+                content = self.input_text.get(1.0, tk.END)
+                file.write(content)
 
     def tokenize_input(self):
         """Tokeniza o texto de entrada e exibe os tokens na tabela."""
