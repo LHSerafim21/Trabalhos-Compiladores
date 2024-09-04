@@ -20,7 +20,22 @@ token_specification = [
     (r'-', 'MINUS'),
     (r'\*', 'MULTIPLY'),
     (r'/', 'DIVIDE'),
-    (r'.', 'UNKNOWN'),
+    (r'<', 'LT'),
+    (r'>', 'GT'),
+    (r'<=', 'LE'),
+    (r'>=', 'GE'),
+    (r'!=', 'NE'),
+    (r'&&', 'AND'),
+    (r'\|\|', 'OR'),
+    (r'!', 'NOT'),
+    (r'\+\+', 'INCREMENT'),
+    (r'--', 'DECREMENT'),
+    (r';', 'SEMICOLON'),
+    (r',', 'COMMA'),
+    (r'"[^"]*"', 'STRING_DOUBLE'),
+    (r"'[^']*'", 'STRING_SINGLE'),
+    (r'//.*', 'COMMENT'),
+    (r'/\*[\s\S]*?\*/', 'MULTILINE_COMMENT'),
 ]
 
 
