@@ -143,6 +143,24 @@ class App:
         for item in self.tree.get_children():
             self.tree.delete(item)
         self.update_line_numbers()
+    
+    def parse_input(self):
+        lexer_name = "current_lexer"
+        input_text = self.input_text.get("1.0", tk.END).strip()
+        if not input_text:
+            messagebox.showwarning("Aviso", "O texto de entrada não pode ficar vazio.")
+            return
+
+        try:
+            tokens = self.manager.parse_input(lexer_name, input_text)
+            # Display the parsed output in the GUI
+            self.tree.delete(*self.tree.get_children())
+            for token in tokens:
+                self.tree.insert("", "end", values=(token, token.type, "", 0, 0, 0))
+        except ValueError as e:
+            messagebox.showerror("Error", str(e))
+        except SyntaxError as e:
+            messagebox.showerror("Error", str(e))
 
 if __name__ == "__main__":
     root = tk.Tk()
