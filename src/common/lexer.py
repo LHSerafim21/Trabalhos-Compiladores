@@ -1,5 +1,3 @@
-from utils.rules import reserved_words
-
 import re
 
 import sys
@@ -24,13 +22,3 @@ class Lexer:
             if not match:
                 raise SyntaxError(f"Caráter ilegal no índice {pos}")
         return tokens
-    
-    def get_token_type(self, lexeme):
-        if lexeme in reserved_words:
-            return lexeme.upper()
-        elif lexeme.isdigit():
-            return "NUMBER"
-        elif lexeme.startswith('"') or lexeme.startswith("'"):
-            return "STRING"
-        else:
-            return "IDENTIFIER"

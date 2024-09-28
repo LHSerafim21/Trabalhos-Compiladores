@@ -13,7 +13,6 @@ if __name__ == "__main__":
     # Criação da interface gráfica
     root = tk.Tk()
     app = App(root)
-    app.tokenize_button.config(command=app.parse_input)
     root.mainloop()
 
     # Exemplo de uso do Lexer e Parser (opcional para testes de linha de comando)
