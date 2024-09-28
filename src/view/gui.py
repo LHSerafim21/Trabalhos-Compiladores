@@ -2,15 +2,14 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 from utils.rules import get_rules
 from controller.lexer_manager import LexerManager
+from controller.parser import Parser  # Importa o Parser
+import threading  # Importa a biblioteca de threading
 
 class App:
     def __init__(self, root):
         self.root = root
         self.root.title("Gerador de analisadores léxicos")
         self.manager = LexerManager()
-
-        # Configura a janela para iniciar maximizada (método alternativo)
-        # self.root.attributes("-zoomed", True)  # Para sistemas Unix (Linux/Mac)
 
         self.root.configure(bg="#2E2E2E")  # Cor de fundo escura
 
@@ -56,7 +55,6 @@ class App:
         self.button_frame = ttk.Frame(root)
         self.button_frame.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)
         
-        # Frame intermediário para centralizar os botões
         self.inner_button_frame = ttk.Frame(self.button_frame)
         self.inner_button_frame.pack(side=tk.TOP, expand=True)
 
@@ -66,7 +64,7 @@ class App:
         self.save_button = ttk.Button(self.inner_button_frame, text="Salvar", command=self.save_file)
         self.save_button.pack(side=tk.LEFT, padx=5)
 
-        self.tokenize_button = ttk.Button(self.inner_button_frame, text="Tokenizar", command=self.tokenize_input)
+        self.tokenize_button = ttk.Button(self.inner_button_frame, text="Tokenizar", command=self.tokenize_input_threaded)
         self.tokenize_button.pack(side=tk.LEFT, padx=5)
 
         self.clear_button = tk.Button(self.inner_button_frame, text="Limpar", command=self.clear_text, bg='#d9534f', fg='white', activebackground='#c9302c', activeforeground='white')
@@ -110,9 +108,11 @@ class App:
             return
 
         try:
-            rules = get_rules("Semantica_principal")  # Usando o conjunto de regras "Semantica_principal"
+            rules = get_rules("LALG")  # Usando o conjunto de regras "LALG"
             self.manager.add_lexer(lexer_name, rules)
             tokens = self.manager.tokenize(lexer_name, input_text)
+
+            # Limpa a tabela de tokens antes de inserir novos
             for item in self.tree.get_children():
                 self.tree.delete(item)
 
@@ -132,10 +132,21 @@ class App:
 
                 error = "" if token_type != "UNKNOWN" else "Erro"
                 self.tree.insert("", "end", values=(lexeme, token_type, error, line, col_start, col_end))
+            
+            # Análise sintática após tokenização
+            parser = Parser(self.manager.get_lexer(lexer_name))
+            parser.parse(tokens)  # Análise dos tokens gerados
+
+            messagebox.showinfo("Sucesso", "Análise sintática concluída com sucesso!")
+
         except ValueError as e:
             messagebox.showerror("Error", str(e))
         except SyntaxError as e:
             messagebox.showerror("Error", str(e))
+
+    def tokenize_input_threaded(self):
+        """Inicia a tokenização em um thread separado para evitar bloquear a GUI."""
+        threading.Thread(target=self.tokenize_input).start()
 
     def clear_text(self):
         """Limpa o editor de texto e a tabela."""
